@@ -1,0 +1,16 @@
+{
+	"name": "cchiles/laravel-rackspace-cloudqueue",
+	"version": "1.0",
+	"description": "Rackspace CloudQueue driver for Laravel Queue",
+	"require": {
+		"php": ">=5.3.0",
+		"illuminate/support": "4.1.*@dev",
+		"illuminate/queue": "4.1.*@dev"
+	},
+	"autoload": {
+		"psr-0": {
+			"cchiles\\RackspaceCloudQueue": "src/"
+		}
+	},
+	"minimum-stability": "dev"
+}
