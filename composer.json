@@ -8,8 +8,8 @@
 		"rackspace/php-opencloud": "1.9.*"
 	},
 	"autoload": {
-		"psr-0": {
-			"cchiles\\RackspaceCloudQueue": "src/"
+		"psr-4": {
+			"cchiles\\RackspaceCloudQueue\\": "src/"
 		}
 	},
 	"minimum-stability": "dev"
