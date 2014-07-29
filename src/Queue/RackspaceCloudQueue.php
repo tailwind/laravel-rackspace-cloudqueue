@@ -1,4 +1,4 @@
-<?php namespace cchiles\RackspaceCloudQueue\Queue\RackspaceCloudQueue;
+<?php namespace cchiles\RackspaceCloudQueue\Queue;
 
 use OpenCloud\Common\Constants\Datetime;
 use OpenCloud\Queues\Service as OpenCloudService;
@@ -93,7 +93,7 @@ class RackspaceCloudQueue extends Queue implements QueueInterface {
 		 * @var \OpenCloud\Common\Collection\PaginatedIterator $response
 		 */
 		$response = $this->queue->claimMessages(array(
-			'limit' => 1,
+			//'limit' => 1,
 			'grace' => 5 * Datetime::MINUTE,
 			'ttl'   => 5 * Datetime::MINUTE
 		));
