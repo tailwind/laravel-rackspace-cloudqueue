@@ -3,8 +3,6 @@
 	"description": "Rackspace CloudQueue driver for Laravel Queue",
 	"require": {
 		"php": ">=5.3.0",
-		"illuminate/support": "4.1.*@dev",
-		"illuminate/queue": "4.1.*@dev",
 		"rackspace/php-opencloud": "1.9.*"
 	},
 	"autoload": {
