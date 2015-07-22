@@ -1,4 +1,5 @@
 # Laravel Rackspace CloudQueue Driver [![Build Status](https://travis-ci.org/tailwind/laravel-rackspace-cloudqueue.svg?branch=master)](https://travis-ci.org/tailwind/laravel-rackspace-cloudqueue)
+> **Note**: Currently there is only support for Laravel 4.2.
 
 ##Installation
 
