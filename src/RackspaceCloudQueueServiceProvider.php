@@ -9,8 +9,6 @@ use Tailwind\RackspaceCloudQueue\Queue\Connectors\RackspaceCloudQueueConnector;
  */
 class RackspaceCloudQueueServiceProvider extends ServiceProvider
 {
-
-		$this->app->booted(function () {
     /**
      * Register the service provider.
      *
@@ -18,10 +16,11 @@ class RackspaceCloudQueueServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->booted(function ($app) {
 
-			Queue::extend('rackspacecloudqueue', function () {
-				return new RackspaceCloudQueueConnector;
-			});
+            $app['queue']->extend('rackspace', function () {
+                return new RackspaceCloudQueueConnector;
+            });
 
         });
     }
