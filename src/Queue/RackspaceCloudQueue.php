@@ -14,7 +14,6 @@ use Tailwind\RackspaceCloudQueue\Queue\Jobs\RackspaceCloudQueueJob;
  */
 class RackspaceCloudQueue extends Queue implements QueueInterface
 {
-
     /**
      * The Rackspace OpenCloud Message Service instance.
      *
@@ -45,7 +44,7 @@ class RackspaceCloudQueue extends Queue implements QueueInterface
     {
         $this->openCloudService = $openCloudService;
         $this->default          = $default;
-        $this->queue            = $openCloudService->createQueue($default);
+        $this->queue            = $this->getQueue($default);
     }
 
     /**
@@ -71,9 +70,11 @@ class RackspaceCloudQueue extends Queue implements QueueInterface
      */
     public function pushRaw($payload, $queue = null, array $options = array())
     {
-        $ttl = array_key_exists('ttl', $options) ? $options['ttl'] : Datetime::DAY * 2;
+        $ttl = array_get($options, 'ttl', Datetime::DAY * 2);
 
-        return $this->queue->createMessage(
+        $cloudQueue = $this->getQueue($queue);
+
+        return $cloudQueue->createMessage(
             array(
                 'body' => $payload,
                 'ttl'  => $ttl,
@@ -103,12 +104,12 @@ class RackspaceCloudQueue extends Queue implements QueueInterface
      */
     public function pop($queue = null)
     {
-        $queue = $this->getQueue($queue);
+        $cloudQueue = $this->getQueue($queue);
 
         /**
          * @var \OpenCloud\Common\Collection\PaginatedIterator $response
          */
-        $response = $this->queue->claimMessages(
+        $response = $cloudQueue->claimMessages(
             array(
                 'grace' => 5 * Datetime::MINUTE,
                 'ttl'   => 5 * Datetime::MINUTE,
@@ -117,28 +118,22 @@ class RackspaceCloudQueue extends Queue implements QueueInterface
         if ( $response and $response->valid() ) {
             $message = $response->current();
 
-            return new RackspaceCloudQueueJob($this->container, $this->queue, $queue, $message);
+            return new RackspaceCloudQueueJob($this->container, $cloudQueue, $queue, $message);
         }
     }
 
     /**
      * Get the queue or return the default.
-     *
-     * @param  string|null $queue
-     * @return string
-     */
-    public function getQueue($queue)
-    {
-        return $queue ?: $this->default;
-    }
-
-    /**
-     * Get the underlying OpenCloud Queue instance.
-     *
+     * @param $queue
      * @return OpenCloudQueue
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      */
-    public function getOpenCloudQueue()
+    protected function getQueue($queue)
     {
-        return $this->queue;
+        if ( is_null($queue) ) {
+            return $this->queue;
+        }
+
+        return $this->openCloudService->createQueue($queue);
     }
 }
