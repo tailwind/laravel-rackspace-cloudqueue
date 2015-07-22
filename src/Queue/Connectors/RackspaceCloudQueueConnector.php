@@ -1,63 +1,65 @@
-<?php namespace cchiles\RackspaceCloudQueue\Queue\Connectors;
+<?php namespace Tailwind\RackspaceCloudQueue\Queue\Connectors;
 
-use cchiles\RackspaceCloudQueue\Queue\RackspaceCloudQueue;
-use OpenCloud\Rackspace;
-use OpenCloud\Queues\Service;
 use Illuminate\Queue\Connectors\ConnectorInterface;
+use OpenCloud\Queues\Service;
+use OpenCloud\Rackspace;
+use Tailwind\RackspaceCloudQueue\Queue\RackspaceCloudQueue;
 
-class RackspaceCloudQueueConnector implements ConnectorInterface {
+/**
+ * Class RackspaceCloudQueueConnector
+ * @package Tailwind\RackspaceCloudQueue\Queue\Connectors
+ */
+class RackspaceCloudQueueConnector implements ConnectorInterface
+{
 
-	/**
-	 * @var \OpenCloud\Rackspace
-	 */
-	protected $connection = null;
+    /**
+     * @var \OpenCloud\Rackspace
+     */
+    protected $connection = null;
 
-	/**
-	 * @var \OpenCloud\Queues\Service
-	 */
-	protected $service = null;
+    /**
+     * @var \OpenCloud\Queues\Service
+     */
+    protected $service = null;
 
-	/**
-	 * Establish a queue connection.
-	 *
-	 * @param  array $config
-	 * @return \Illuminate\Queue\QueueInterface
-	 */
-	public function connect(array $config)
-	{
-		switch ($config['endpoint'])
-		{
-			case 'US':
-				$endpoint = Rackspace::US_IDENTITY_ENDPOINT;
-				break;
-			case 'UK':
-			default:
-				$endpoint = Rackspace::UK_IDENTITY_ENDPOINT;
-		}
+    /**
+     * Establish a queue connection.
+     *
+     * @param  array $config
+     * @return \Illuminate\Queue\QueueInterface
+     */
+    public function connect(array $config)
+    {
+        switch ( $config['endpoint'] ) {
+            case 'US':
+                $endpoint = Rackspace::US_IDENTITY_ENDPOINT;
+                break;
+            case 'UK':
+            default:
+                $endpoint = Rackspace::UK_IDENTITY_ENDPOINT;
+        }
 
-		if ($this->connection == null)
-		{
-			$this->connection = new Rackspace(
-				$endpoint,
-				array(
-					'username' => $config['username'],
-					'apiKey' => $config['apiKey']
-				)
-			);
-		}
+        if ( $this->connection == null ) {
+            $this->connection = new Rackspace(
+                $endpoint,
+                array(
+                    'username' => $config['username'],
+                    'apiKey'   => $config['apiKey'],
+                )
+            );
+        }
 
-		if ($this->service === null)
-		{
-			$this->service = $this->connection->queuesService(
-				Service::DEFAULT_NAME,
-				$config['region'],
-				$config['urlType']
-			);
-		}
+        if ( $this->service === null ) {
+            $this->service = $this->connection->queuesService(
+                Service::DEFAULT_NAME,
+                $config['region'],
+                array_get($config,'urlType','internalURL')
+            );
+        }
 
-		$this->service->setClientId();
+        $this->service->setClientId();
 
-		return new RackspaceCloudQueue($this->service, $config['queue']);
-	}
+        return new RackspaceCloudQueue($this->service, $config['queue']);
+    }
 
 }
