@@ -53,7 +53,7 @@ class RackspaceCloudQueueConnector implements ConnectorInterface
             $this->service = $this->connection->queuesService(
                 Service::DEFAULT_NAME,
                 $config['region'],
-                $config['urlType']
+                array_get($config,'urlType','internalURL')
             );
         }
 
