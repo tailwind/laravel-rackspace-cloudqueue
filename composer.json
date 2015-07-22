@@ -1,14 +1,23 @@
 {
-	"name": "cchiles/laravel-rackspace-cloudqueue",
-	"description": "Rackspace CloudQueue driver for Laravel Queue",
-	"require": {
-		"php": ">=5.3.0",
-		"rackspace/php-opencloud": "1.9.*"
-	},
-	"autoload": {
-		"psr-4": {
-			"cchiles\\RackspaceCloudQueue\\": "src/"
-		}
-	},
-	"minimum-stability": "dev"
+  "name": "tailwind/laravel-rackspace-cloudqueue",
+  "description": "Rackspace CloudQueue driver for Laravel Queue",
+  "keywords": [
+    "cloudqueue",
+    "rackspace queue",
+    "queue",
+    "laravel",
+    "rackspace"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.0",
+    "rackspace/php-opencloud": "1.*",
+    "illuminate/queue": "4.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tailwind\\RackspaceCloudQueue\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
 }
