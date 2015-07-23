@@ -20,7 +20,7 @@ class CloudQueueTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testPopProperlyPopsJobOffOf()
+    public function testPopProperlyPopsJobOff()
     {
         $message = m::mock('OpenCloud\Queues\Resource\Message');
 
@@ -44,6 +44,27 @@ class CloudQueueTest extends PHPUnit_Framework_TestCase
         $job = $queue->pop();
 
         $this->assertInstanceOf('Tailwind\RackspaceCloudQueue\Queue\Jobs\RackspaceCloudQueueJob', $job);
+    }
+
+    public function testPushProperlyPushesJobOn()
+    {
+        $job = m::mock('Tailwind\RackspaceCloudQueue\Queue\Jobs\RackspaceCloudQueueJob');
+
+        $openCloudQueue = m::mock('OpenCloud\Queues\Resource\Queue')
+                           ->shouldReceive('createMessage')
+                           ->andReturn(true)
+                           ->getMock();
+
+        $this->cloudQueueService->shouldReceive('createQueue')->once()->andReturn($openCloudQueue)->getMock();
+
+        $queue = new \Tailwind\RackspaceCloudQueue\Queue\RackspaceCloudQueue(
+            $this->cloudQueueService,
+            $this->default
+        );
+        $queue->setContainer(m::mock('Illuminate\Container\Container'));
+
+        $this->assertTrue($queue->push($job));
+
     }
 
     public function tearDown()

@@ -66,7 +66,7 @@ class RackspaceCloudQueue extends Queue implements QueueInterface
      * @param  string $payload
      * @param  string $queue
      * @param  array  $options
-     * @return mixed
+     * @return bool
      */
     public function pushRaw($payload, $queue = null, array $options = array())
     {
