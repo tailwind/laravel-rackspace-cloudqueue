@@ -24,11 +24,11 @@ class CloudQueueTest extends PHPUnit_Framework_TestCase
     {
         $message = m::mock('OpenCloud\Queues\Resource\Message');
 
-        $response = m::mock(OpenCloud\Common\Collection\PaginatedIterator::class)
+        $response = m::mock('OpenCloud\Common\Collection\PaginatedIterator')
                      ->shouldReceive(['valid'=>true, 'current'=>$message])
                      ->getMock();
 
-        $openCloudQueue = m::mock(OpenCloud\Queues\Resource\Queue::class)
+        $openCloudQueue = m::mock('OpenCloud\Queues\Resource\Queue')
                            ->shouldReceive('claimMessages')
                            ->andReturn($response)
                            ->getMock();
@@ -39,11 +39,11 @@ class CloudQueueTest extends PHPUnit_Framework_TestCase
             $this->cloudQueueService,
             $this->default
         );
-        $queue->setContainer(m::mock(Illuminate\Container\Container::class));
+        $queue->setContainer(m::mock('Illuminate\Container\Container'));
 
         $job = $queue->pop();
 
-        $this->assertInstanceOf(\Tailwind\RackspaceCloudQueue\Queue\Jobs\RackspaceCloudQueueJob::class, $job);
+        $this->assertInstanceOf('Tailwind\RackspaceCloudQueue\Queue\Jobs\RackspaceCloudQueueJob', $job);
     }
 
     public function tearDown()
