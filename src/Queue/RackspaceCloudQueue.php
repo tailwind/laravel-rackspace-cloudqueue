@@ -111,6 +111,7 @@ class RackspaceCloudQueue extends Queue implements QueueInterface
          */
         $response = $cloudQueue->claimMessages(
             array(
+                'limit' => 1,
                 'grace' => 5 * Datetime::MINUTE,
                 'ttl'   => 5 * Datetime::MINUTE,
             ));

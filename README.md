@@ -54,6 +54,9 @@ return array(
 
 ## Changelog
 
+### Version 2.0.2
+* Fix a bug where 10 items were popped off a time and only 1 was processed
+
 ### Version 2.0
 * Change to Tailwind namespace
 * Shorten driver name to just "rackspace"
