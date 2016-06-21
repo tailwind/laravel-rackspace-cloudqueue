@@ -1,5 +1,5 @@
 {
-  "name": "tailwind/laravel-rackspace-cloudqueue",
+  "name": "faulker/laravel-rackspace-cloudqueue",
   "description": "Rackspace CloudQueue driver for Laravel Queue",
   "keywords": [
     "cloudqueue",
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Tailwind\\RackspaceCloudQueue\\": "src/"
+      "Faulker\\RackspaceCloudQueue\\": "src/"
     }
   },
   "minimum-stability": "dev"
