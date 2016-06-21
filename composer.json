@@ -12,7 +12,7 @@
   "require": {
     "php": ">=5.4.0",
     "rackspace/php-opencloud": "1.*",
-    "illuminate/queue": "4.2.*"
+    "illuminate/queue": "5.1.*"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",
