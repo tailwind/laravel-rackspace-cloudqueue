@@ -1,6 +1,6 @@
 {
   "name": "faulker/laravel-rackspace-cloudqueue",
-  "description": "Rackspace CloudQueue driver for Laravel Queue",
+  "description": "Rackspace CloudQueue driver for Laravel 5.1 Queue",
   "keywords": [
     "cloudqueue",
     "rackspace queue",
