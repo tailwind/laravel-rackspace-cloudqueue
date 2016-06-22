@@ -1,16 +1,11 @@
-<?php namespace Tailwind\RackspaceCloudQueue\Queue\Connectors;
+<?php namespace Faulker\RackspaceCloudQueue\Queue\Connectors;
 
-use Illuminate\Queue\Connectors\ConnectorInterface;
-use OpenCloud\Queues\Service;
+use Faulker\RackspaceCloudQueue\Queue\RackspaceCloudQueue;
 use OpenCloud\Rackspace;
-use Tailwind\RackspaceCloudQueue\Queue\RackspaceCloudQueue;
+use OpenCloud\Queues\Service;
+use Illuminate\Queue\Connectors\ConnectorInterface;
 
-/**
- * Class RackspaceCloudQueueConnector
- * @package Tailwind\RackspaceCloudQueue\Queue\Connectors
- */
-class RackspaceCloudQueueConnector implements ConnectorInterface
-{
+class RackspaceCloudQueueConnector implements ConnectorInterface {
 
     /**
      * @var \OpenCloud\Rackspace
@@ -30,7 +25,8 @@ class RackspaceCloudQueueConnector implements ConnectorInterface
      */
     public function connect(array $config)
     {
-        switch ( $config['endpoint'] ) {
+        switch ($config['endpoint'])
+        {
             case 'US':
                 $endpoint = Rackspace::US_IDENTITY_ENDPOINT;
                 break;
@@ -39,21 +35,23 @@ class RackspaceCloudQueueConnector implements ConnectorInterface
                 $endpoint = Rackspace::UK_IDENTITY_ENDPOINT;
         }
 
-        if ( $this->connection == null ) {
+        if ($this->connection == null)
+        {
             $this->connection = new Rackspace(
                 $endpoint,
                 array(
                     'username' => $config['username'],
-                    'apiKey'   => $config['apiKey'],
+                    'apiKey' => $config['apiKey']
                 )
             );
         }
 
-        if ( $this->service === null ) {
+        if ($this->service === null)
+        {
             $this->service = $this->connection->queuesService(
                 Service::DEFAULT_NAME,
                 $config['region'],
-                array_get($config,'urlType','internalURL')
+                $config['urlType']
             );
         }
 

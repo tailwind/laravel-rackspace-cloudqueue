@@ -1,16 +1,12 @@
-<?php namespace Tailwind\RackspaceCloudQueue\Queue\Jobs;
+<?php namespace Faulker\RackspaceCloudQueue\Queue\Jobs;
 
 use Illuminate\Container\Container;
 use Illuminate\Queue\Jobs\Job;
+use Illuminate\Contracts\Queue\Job as JobContract;
 use OpenCloud\Queues\Resource\Queue as OpenCloudQueue;
 use OpenCloud\Queues\Resource\Message;
 
-/**
- * Class RackspaceCloudQueueJob
- * @package Tailwind\RackspaceCloudQueue\Queue\Jobs
- */
-class RackspaceCloudQueueJob extends Job
-{
+class RackspaceCloudQueueJob extends Job implements JobContract {
     /**
      * The Rackspace OpenCloud Queue instance.
      *
@@ -25,18 +21,12 @@ class RackspaceCloudQueueJob extends Job
      */
     protected $message;
 
-    /**
-     * @param Container      $container
-     * @param OpenCloudQueue $openCloudQueue
-     * @param                $queue
-     * @param Message        $message
-     */
     public function __construct(Container $container, OpenCloudQueue $openCloudQueue, $queue, Message $message)
     {
         $this->openCloudQueue = $openCloudQueue;
-        $this->message        = $message;
-        $this->queue          = $queue;
-        $this->container      = $container;
+        $this->message = $message;
+        $this->queue = $queue;
+        $this->container = $container;
     }
 
     /**
