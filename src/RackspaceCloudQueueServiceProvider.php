@@ -1,14 +1,12 @@
-<?php namespace Tailwind\RackspaceCloudQueue;
+<?php namespace Faulker\RackspaceCloudQueue;
 
+use Faulker\RackspaceCloudQueue\Queue\Connectors\RackspaceCloudQueueConnector;
 use Illuminate\Support\ServiceProvider;
-use Tailwind\RackspaceCloudQueue\Queue\Connectors\RackspaceCloudQueueConnector;
+use Queue;
 
-/**
- * Class RackspaceCloudQueueServiceProvider
- * @package Tailwind\RackspaceCloudQueue
- */
 class RackspaceCloudQueueServiceProvider extends ServiceProvider
 {
+
     /**
      * Register the service provider.
      *
@@ -16,9 +14,9 @@ class RackspaceCloudQueueServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->booted(function ($app) {
+        $this->app->booted(function () {
 
-            $app['queue']->extend('rackspace', function () {
+            Queue::extend('rackspace', function () {
                 return new RackspaceCloudQueueConnector;
             });
 

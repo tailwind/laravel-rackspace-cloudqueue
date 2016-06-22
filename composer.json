@@ -1,6 +1,6 @@
 {
-  "name": "tailwind/laravel-rackspace-cloudqueue",
-  "description": "Rackspace CloudQueue driver for Laravel Queue",
+  "name": "faulker/laravel-rackspace-cloudqueue",
+  "description": "Rackspace CloudQueue driver for Laravel 5.1 Queue",
   "keywords": [
     "cloudqueue",
     "rackspace queue",
@@ -12,7 +12,6 @@
   "require": {
     "php": ">=5.4.0",
     "rackspace/php-opencloud": "1.*",
-    "illuminate/queue": "4.2.*"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",
@@ -20,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Tailwind\\RackspaceCloudQueue\\": "src/"
+      "Faulker\\RackspaceCloudQueue\\": "src/"
     }
   },
   "minimum-stability": "dev"
